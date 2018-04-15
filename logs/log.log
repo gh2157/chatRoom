@@ -1,0 +1,7 @@
+2016-08-01 13:23:02,086 WARN  ~ Use of proxool.maximum-new-connections is deprecated. Use more descriptive proxool.simultaneous-build-throttle instead.  ~ org.logicalcobwebs.proxool.ConnectionPoolDefinition.setAnyProperty(ConnectionPoolDefinition.java:317) ~ org.logicalcobwebs.proxool.mysql ~ 0
+2016-08-01 13:23:02,741 ERROR ~ Singleton.init finish ...  ~ com.chat.server.main.Main.main(Main.java:19) ~ com.chat.server.main.Main ~ 655
+2016-08-01 13:23:02,975 ERROR ~ 初始化服务器 fail  ~ com.chat.server.main.Main.main(Main.java:27) ~ com.chat.server.main.Main ~ 889
+2016-08-01 13:23:45,534 WARN  ~ Use of proxool.maximum-new-connections is deprecated. Use more descriptive proxool.simultaneous-build-throttle instead.  ~ org.logicalcobwebs.proxool.ConnectionPoolDefinition.setAnyProperty(ConnectionPoolDefinition.java:317) ~ org.logicalcobwebs.proxool.mysql ~ 0
+2016-08-01 13:23:46,049 ERROR ~ Singleton.init finish ...  ~ com.chat.server.main.Main.main(Main.java:19) ~ com.chat.server.main.Main ~ 515
+2016-08-01 13:35:35,474 WARN  ~ Use of proxool.maximum-new-connections is deprecated. Use more descriptive proxool.simultaneous-build-throttle instead.  ~ org.logicalcobwebs.proxool.ConnectionPoolDefinition.setAnyProperty(ConnectionPoolDefinition.java:317) ~ org.logicalcobwebs.proxool.mysql ~ 0
+2016-08-01 13:35:36,800 ERROR ~ Singleton.init finish ...  ~ com.chat.server.main.Main.main(Main.java:19) ~ com.chat.server.main.Main ~ 1326

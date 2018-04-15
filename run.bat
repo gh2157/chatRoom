@@ -1,0 +1,2 @@
+java  -classpath build/dest/chat-server.jar;libs/fastjson-1.2.6.jar;libs/guava-18.0.jar;libs/commons-logging-1.2.jar;libs/log4j-1.2.17.jar;libs/mysql-connector-java-5.1.7-bin.jar;libs/netty-all-4.0.34.Final.jar;libs/proxool-0.9.1.jar;libs/proxool-cglib.jar com.chat.server.main.Main
+pause

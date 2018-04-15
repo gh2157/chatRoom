@@ -1,0 +1,94 @@
+<html><head><title>即时通讯demo</title></head>
+<body>
+<script type="text/javascript">
+var socket;
+if (!window.WebSocket) {
+  window.WebSocket = window.MozWebSocket;
+}
+if (window.WebSocket) {
+  socket = new WebSocket("ws://localhost:8088/websocket");//此处为连接即时通讯服务器的地址,部署时需修改或者在前端服务器生成
+  socket.onmessage = function(event) {
+    var obj = JSON.parse(event.data);
+	if(obj.command == 'err'){
+		onErr(obj);
+		return;
+	}
+	if(obj.command == 'open' || obj.command == 'syn'){
+		onOpen(obj);
+		return;
+	}
+	
+  };
+  socket.onopen = function(event) {
+    var ta = document.getElementById('responseText');
+    ta.value = "连接到服务器";
+  };
+  socket.onclose = function(event) {
+    var ta = document.getElementById('responseText');
+    ta.value = ta.value + "连接已断开!"; 
+  };
+} else {
+  alert("当前浏览器不支持此功能!");
+}
+
+function write(message) {
+  if (!window.WebSocket) { return; }
+  if (socket.readyState == WebSocket.OPEN) {
+    socket.send(message);
+  } else {
+    alert("无法连接到服务器!");
+  }
+}
+
+
+function onErr(obj){
+	output("Error:"+obj.result);
+}
+
+
+
+
+
+function output(message){
+	var ta = document.getElementById('responseText');
+    
+	ta.value = ta.value + '\n' + message;
+}
+
+function onOpen(obj){
+	var ta = document.getElementById('editArea');
+	ta.value	= b64_to_utf8(obj.result.content);
+	ta.doc_version	= obj.result.version;
+}
+
+function utf8_to_b64( str ) {
+    return window.btoa(unescape(encodeURIComponent( str )));
+}
+
+function b64_to_utf8( str ) {
+    return decodeURIComponent(escape(window.atob( str )));
+}
+
+function syn(){
+	var ta = document.getElementById('editArea');
+	var id	=document.getElementById('docId').value;
+	write("/syn "+id+" "+utf8_to_b64(ta.value));
+}
+
+
+function open_doc(id){
+	write("/open "+id);
+}
+
+
+</script>
+<form onsubmit="return false;">
+<input type="text" name="docId" id="docId" value=""/><input type="button" value="Open" onclick="open_doc(this.form.docId.value)" />
+<h3>Output</h3>
+<hr>
+<textarea id="responseText" style="width:500px;height:300px;"></textarea>
+<textarea id="editArea" style="width:500px;height:300px;" onkeyup="syn()"></textarea>
+
+</form>
+</body>
+</html>

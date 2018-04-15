@@ -1,0 +1,38 @@
+struct Auth
+{
+	int32 id
+	string name
+}
+
+struct Message
+{
+	int32 time
+	int32 fromId
+	string fromName
+	string content
+}
+
+struct User
+{
+	int32 id
+	string name
+	_boolean isOnline
+}
+
+struct Group
+{
+	int32 id
+	string name
+	int32 owner
+	list User userList
+}
+
+struct ListUser
+{
+	list User userList
+}
+
+struct ListGroup
+{
+	list Group groupList
+}

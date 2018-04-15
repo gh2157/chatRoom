@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<project name="Main" default="build" basedir=".">  
+  
+    <property name="src" value="build/src" />
+	<property name="classes" value="build/classes" />
+    <property name="dest" value="build/dest" />
+	<property name="libs" value="build/libs" /> 
+    <property name="main_jar" value="chat-server.jar" />  
+  
+    <target name="init" depends="clean">
+		<mkdir dir="${src}" />
+        <mkdir dir="${dest}"/> 
+		<mkdir dir="${classes}"/> 
+		<copy todir="${src}">
+           <fileset dir="src">
+              <include name="/" />
+          </fileset>
+       </copy>
+	   
+	   <copy todir="${libs}">
+           <fileset dir="libs">
+              <include name="*.jar" />
+          </fileset>
+       </copy>
+    </target>
+
+	<path id="compile.classpath">
+		<fileset dir="${libs}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+  
+    <target name="compile" depends="init">
+        <javac srcdir="${src}" destdir="${classes}" encoding="UTF-8" includeantruntime="on" >
+			<classpath refid="compile.classpath" />
+		</javac>
+    </target>  
+  
+	<target name="copyFile" depends="compile">
+		<copy tofile="${classes}/log4j.properties" file="${src}/log4j.properties" />
+	</target>  
+	
+    <target name="build" depends="copyFile">
+		<pathconvert property="mf.classpath" pathsep=" ">  
+            <mapper>  
+                <chainedmapper>  
+                    <flattenmapper/>  
+                    <globmapper from="*" to="${libs}/*"/>  
+                </chainedmapper>  
+            </mapper>  
+            <path refid="compile.classpath"/>  
+         </pathconvert>
+        <jar jarfile="${dest}/${main_jar}" basedir="${classes}" >
+			<manifest>  
+                <attribute name="Main-class" value="com.chat.server.service.WebSocketServer"/>
+            </manifest> 
+		</jar>
+		<delete dir="${src}" />
+        <delete dir="${libs}" />
+        <delete dir="${classes}"/>
+    </target>
+	
+	<target name="dest" depends="build">
+		
+	</target>
+	<target name="clean" >
+		<delete dir="${src}" />
+        <delete dir="${libs}" />
+        <delete dir="${classes}"/>
+	</target>
+</project> 
